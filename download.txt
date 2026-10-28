@@ -1,0 +1,128 @@
+================================================================================
+DOWNLOAD LINKS FOR RICE LAND SUITABILITY ANALYSIS - NIGERIA
+================================================================================
+
+CLIMATE DATA (WorldClim v2.1)
+--------------------------------------------------------------------------------
+Source: https://www.worldclim.org/data/worldclim21.html
+Download: Click "bio 2.5m" in the Bioclimatic variables table
+Files needed (from the zip):
+  - wc2.1_2.5m_bio_1.tif    (Annual Mean Temperature)
+  - wc2.1_2.5m_bio_5.tif    (Max Temperature Warmest Month)
+  - wc2.1_2.5m_bio_6.tif    (Min Temperature Coldest Month)
+  - wc2.1_2.5m_bio_12.tif   (Annual Precipitation)
+  - wc2.1_2.5m_bio_15.tif   (Precipitation Seasonality)
+Place in: data/raw/worldclim/
+
+
+TOPOGRAPHY DATA (SRTM Elevation)
+--------------------------------------------------------------------------------
+Source: https://dwtkns.com/srtm30m/
+Note: Requires free NASA Earthdata account
+      Register at: https://urs.earthdata.nasa.gov/
+Tiles needed for Nigeria (click on the map):
+  - N06E003 (Southwest Nigeria)
+  - N06E006 (Central Nigeria)
+  - N08E007 (Central Nigeria)
+  - N09E006 (North-central Nigeria)
+  - N09E009 (Northeast Nigeria)
+  - N11E008 (North-central Nigeria)
+  - N11E012 (Northeast Nigeria)
+Download: Click tile → Download → .hgt format
+Place in: data/raw/srtm/
+
+
+SOIL DATA (SoilGrids 250m)
+--------------------------------------------------------------------------------
+Option 1 - Direct download (if available):
+  https://files.isric.org/soilgrids/latest/data/phh2o/phh2o_0-5cm_mean.tif
+  https://files.isric.org/soilgrids/latest/data/clay/clay_0-5cm_mean.tif
+  https://files.isric.org/soilgrids/latest/data/soc/soc_0-5cm_mean.tif
+  https://files.isric.org/soilgrids/latest/data/sand/sand_0-5cm_mean.tif
+  https://files.isric.org/soilgrids/latest/data/bdod/bdod_0-5cm_mean.tif
+
+Option 2 - Website (may be slow):
+  https://soilgrids.org/
+  Click "Download" → Select properties → Depth: 0-5cm → Download
+
+Option 3 - FAO HWSD:
+  https://gaez.fao.org/
+  Click "Soil" tab → Download HWSD dataset
+
+Place in: data/raw/soilgrids/
+
+
+LAND COVER DATA (ESA WorldCover 2021)
+--------------------------------------------------------------------------------
+Option 1 - Main website:
+  https://esa-worldcover.org/en/data-access
+  Select 2021 → Africa → Download tiles covering Nigeria
+  Note: May require account registration
+
+Option 2 - Zenodo mirror:
+  https://zenodo.org/record/5571250
+  Download Africa tiles
+
+Tiles needed for Nigeria:
+  - ESA_WorldCover_10m_2021_v200_N03E006_Map
+  - ESA_WorldCover_10m_2021_v200_N03E009_Map
+  - ESA_WorldCover_10m_2021_v200_N06E003_Map
+  - ESA_WorldCover_10m_2021_v200_N06E006_Map
+  - ESA_WorldCover_10m_2021_v200_N06E009_Map
+  - ESA_WorldCover_10m_2021_v200_N09E006_Map
+  - ESA_WorldCover_10m_2021_v200_N09E009_Map
+
+Place in: data/raw/worldcover/
+
+
+WATER DATA (HydroSHEDS / Rivers)
+--------------------------------------------------------------------------------
+Option 1 - HydroSHEDS:
+  https://www.hydrosheds.org/products/hydrosheds
+  Download HydroRIVERS shapefile for Africa
+
+Option 2 - Natural Earth:
+  https://www.naturalearthdata.com/downloads/
+  Download "Rivers + Lake Centerlines" (10m or 50m scale)
+
+Option 3 - JRC Global Surface Water:
+  https://global-surface-water.appspot.com/
+  Download "Occurrence" or "Seasonality" data for Africa
+
+Place in: data/raw/water/
+
+
+ADMINISTRATIVE BOUNDARIES (Nigeria Boundary)
+--------------------------------------------------------------------------------
+Option 1 - GADM:
+  https://gadm.org/download_country.html
+  Select: Country = Nigeria, Format = Shapefile, Level = 0
+
+Option 2 - Natural Earth:
+  https://www.naturalearthdata.com/downloads/
+  Download "Admin 0 - Countries" shapefile
+
+Option 3 - FAO GAUL:
+  https://data.apps.fao.org/map/catalog/srv/eng/catalog.search
+
+Place in: data/raw/admin/
+
+
+================================================================================
+QUICK START GUIDE
+================================================================================
+
+1. Download WorldClim "bio 2.5m" → extract to data/raw/worldclim/
+2. Download SRTM tiles → place .hgt files in data/raw/srtm/
+3. (Optional) Download SoilGrids data → place in data/raw/soilgrids/
+4. (Optional) Download ESA WorldCover → place in data/raw/worldcover/
+5. (Optional) Download water data → place in data/raw/water/
+
+Then run:
+  python -m src.main preprocess
+  python -m src.main analyze
+
+NOTE: The system works with partial data. If some datasets are unavailable,
+the analysis will run with whatever data is present.
+
+================================================================================
